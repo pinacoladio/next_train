@@ -77,19 +77,34 @@ bot = telebot.TeleBot('5713337542:AAF-fI_hE8wtZArlFuNiP9zCr71y6mz1Rko')
 def get_text_messages(message):
     if message.text == "/next_novodachka":
         out = when_next(stations['Новодачная'])
-        bot.send_message(message.from_user.id, " \n".join(out))
+        if(len(out) == 0):
+            bot.send_message(message.from_user.id, "На сегодня электричек нет")
+        else:
+            bot.send_message(message.from_user.id, " \n".join(out))
     elif message.text == "/next_savyolovskaya":
         out = when_next(stations['Савёловский вокзал'])
-        bot.send_message(message.from_user.id, " \n".join(out))
+        if(len(out) == 0):
+            bot.send_message(message.from_user.id, "На сегодня электричек нет")
+        else:
+            bot.send_message(message.from_user.id, " \n".join(out))    
     elif message.text == "/next_timiryazevskaya":
         out = when_next(stations['Тимирязевская'])
-        bot.send_message(message.from_user.id, " \n".join(out))
+        if(len(out) == 0):
+            bot.send_message(message.from_user.id, "На сегодня электричек нет")
+        else:
+            bot.send_message(message.from_user.id, " \n".join(out))    
     elif message.text == "/next_belorusckij":
         out = when_next(stations['Белорусcкий вокзал'])
-        bot.send_message(message.from_user.id, " \n".join(out))
+        if(len(out) == 0):
+            bot.send_message(message.from_user.id, "На сегодня электричек нет")
+        else:
+            bot.send_message(message.from_user.id, " \n".join(out))    
     elif message.text == "/next_testovskaya":
         out = when_next(stations['Тестовская'])
-        bot.send_message(message.from_user.id, " \n".join(out))
+        if(len(out) == 0):
+            bot.send_message(message.from_user.id, "На сегодня электричек нет")
+        else:
+            bot.send_message(message.from_user.id, " \n".join(out))  
     else:
         bot.send_message(message.from_user.id, "Я тебя не понимаю.Доступные команды \n" \
         "/next_novodachka \n" \
