@@ -3,10 +3,20 @@ from datetime import datetime
 import requests
 import psycopg2
 import pprint
-conn = psycopg2.connect(dbname='tg_bot', user='postgres',
-                        password='123456', host='localhost',
-                        port='5433')
-apikey = 'fc81eaca-788e-4315-b254-f08ba6e7ce04'
+
+
+with open("secret_info.txt", "r") as file:
+    data_array = file.readlines()
+    data_struct = [item.split() for item in data_array]
+    secret_dict = {item[0]:item[1] for item in data_struct}
+    
+conn = psycopg2.connect(dbname = secret_dict['dbname'], 
+                        user = secret_dict['user'],
+                        password = secret_dict['password'], 
+                        host = secret_dict['host'],
+                        port = secret_dict['port'])
+
+apikey = secret_dict['apikey']
 cursor = conn.cursor()
 conn.autocommit = True
 
@@ -18,12 +28,13 @@ def make_timestamp(time_string):
 
 
 def truncate_data():
-    query = 'TRUNCATE data_api;'
+    query = 'TRUNCATE data;'
     cursor.execute(query)
 
 
 def insert_new_line(data):
-    query = 'INSERT INTO data (id, timestamp_arrival, station, direction, stops, thread, type) '             'VALUES (%s, %s, %s, %s, %s, %s, %s);'
+    query = 'INSERT INTO data (id, timestamp_arrival, station, direction, stops, thread, type) ' \
+            'VALUES (%s, %s, %s, %s, %s, %s, %s);'
     cursor.execute(query, data)
 
 
