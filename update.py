@@ -91,4 +91,4 @@ while True:
         print('updating starts, day for update:', today)
         update_data(today, stations_id)
         print('success updating')
-        time.sleep(3600*2-500)
+        time.sleep(3600*1-500)
