@@ -12,8 +12,11 @@ class Cat_picture:
     
     cat_picture = open('cats/' + random.choice(os.listdir('cats')), 'rb')
     
-    def get_picture(n):
-        return cat_picture      
+    def get_picture_random(n):
+        if random(0,1):
+            return cat_picture
+        else:
+            pass     
 
 with open("secret_info.txt", "r") as file:
     data_array = file.readlines()
