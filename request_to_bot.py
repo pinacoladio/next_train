@@ -7,17 +7,6 @@ import telebot
 import random
 import os
 
-
-class Cat_picture:
-    
-    cat_picture = open('cats/' + random.choice(os.listdir('cats')), 'rb')
-    
-    def get_picture_random(n):
-        if random(0,1):
-            return cat_picture
-        else:
-            pass     
-
 with open("secret_info.txt", "r") as file:
     data_array = file.readlines()
     data_struct = [item.split() for item in data_array]
@@ -33,9 +22,12 @@ cursor = conn.cursor()
 conn.autocommit = True
 bot = telebot.TeleBot(secret_dict['bot'])
 
-def cat_picture() :
-    name_jpg = 'cats/1.jpg'
-    return name_jpg
+class Cat_picture():
+    @staticmethod
+    def get_picture():
+        cat_picture = open('cats/' + random.choice(os.listdir('cats')), 'rb')
+        return cat_picture 
+
 
 def printing_answer(records):
     print_out = []
@@ -80,7 +72,7 @@ def when_next(station):
         'ts_now' : ts_now,
         'station' : station
         }
-    if station == stations['Новодачная'][0]:
+    if station == stations['Новодачная']:
             query = 'SELECT timestamp_arrival, MAX(timestamp_arrival -  %(ts_now)s), MAX(thread), MAX(type) \n'\
                     'FROM data \n' \
                     "WHERE direction IN ('на Москву','Белорусское направление') and timestamp_arrival > %(ts_now)s and station = %(station)s  \n"\
@@ -101,8 +93,8 @@ def when_next(station):
 @bot.message_handler(commands=['start'])
 def first_message(message):
     mes = bot.send_message(message.from_user.id, "Привет! Я бот, который говорит сколько времени до прибытия электрички.\n "\
-    "Сейчас расскажу тебе свой функционал.\n"\
-    "Я подсказываю время прибытия электричек по таким путям: \n"\
+    "Сейчас соориентирую тебя немного в соём функционале.\n"\
+    "Я подсказфваю время прибытия электричек по таким путям: \n"\
     "Новодачная на Москву -> команда Новодачная или /next_novodachka \n" \
     "Окружная на Новодачную -> команда Окружная или /next_okruzhnaya \n" \
     "Тимирязевская на Новодачную -> команда Тимирязевская или /next_timiryazevskaya \n" \
@@ -142,7 +134,11 @@ def get_text_messages(message):
             bot.send_message(message.from_user.id, "На сегодня электричек нет")
         else:
             bot.send_message(message.from_user.id, " \n".join(out), parse_mode = "Markdown")
-            bot.send_photo(message.from_user.id, photo = open(cat_picture(), 'rb')) 
+            if (random.random() > 0.9) :
+                photo = Cat_picture.get_picture()
+                bot.send_photo(message.from_user.id, photo)
+                bot.send_message(message.from_user.id, "Вам сегодня повезло - вам попалась счастливая кошечка! Пусть ваш день будет прекрасен" )
+
     else:
         bot.send_message(message.from_user.id, "Извини я тебя не понимаю, пожалуйста проверь написание команд" \
                          "Если что можешь вызвать команду /help или меню" )
