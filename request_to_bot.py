@@ -4,6 +4,16 @@ import psycopg2
 import math
 import wheel
 import telebot
+import random
+import os
+
+
+class Cat_picture:
+    
+    cat_picture = open('cats/' + random.choice(os.listdir('cats')), 'rb')
+    
+    def get_picture(n):
+        return cat_picture      
 
 with open("secret_info.txt", "r") as file:
     data_array = file.readlines()
