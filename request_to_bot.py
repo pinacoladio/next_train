@@ -93,8 +93,8 @@ def when_next(station):
 @bot.message_handler(commands=['start'])
 def first_message(message):
     mes = bot.send_message(message.from_user.id, "Привет! Я бот, который говорит сколько времени до прибытия электрички.\n "\
-    "Сейчас соориентирую тебя немного в соём функционале.\n"\
-    "Я подсказфваю время прибытия электричек по таким путям: \n"\
+    "Сейчас расскажу тебе свой функционал.\n"\
+    "Я подсказываю время прибытия электричек по таким путям: \n"\
     "Новодачная на Москву -> команда Новодачная или /next_novodachka \n" \
     "Окружная на Новодачную -> команда Окружная или /next_okruzhnaya \n" \
     "Тимирязевская на Новодачную -> команда Тимирязевская или /next_timiryazevskaya \n" \
@@ -105,14 +105,14 @@ def first_message(message):
 
 @bot.message_handler(commands=['help'])
 def help_message(message):
-    mes = bot.send_message(message.from_user.id, "Снова привет! вот подсказка если что-то подзабыл или неправильно написал: \n" \
+    mes = bot.send_message(message.from_user.id, "Снова привет! вот подсказка, если вдруг забыл или неправильно написал: \n" \
     "Новодачная на Москву -> команда Новодачная или /next_novodachka \n" \
     "Окружная на Новодачную -> команда Окружная или /next_okruzhnaya \n" \
     "Тимирязевская на Новодачную -> команда Тимирязевская или /next_timiryazevskaya \n" \
     "Савёловский вокзал на Новодачную  -> команда Савёловский вокзал или /next_savyolovskaya \n" \
     "Белорусcкий вокзал на Новодачную -> команда Белорусcкий вокзал или /next_belorusckij \n" \
     "Тестовская на Новодачную -> команда Тестовская или /next_testovskaya \n" \
-    "Так же если что пиши команду /help она снова подскажет направление электричек и их команды. У меня есть меню с кнопочками, для быстроты активно используй и их)")
+    "Если что пиши команду /help, она снова подскажет направление электричек и их команды. У меня есть меню с кнопочками, для быстроты активно используй и их)")
                            
 @bot.message_handler(commands=['menu'])
 def button_message(message):
@@ -137,7 +137,7 @@ def get_text_messages(message):
             if (random.random() > 0.9) :
                 photo = Cat_picture.get_picture()
                 bot.send_photo(message.from_user.id, photo)
-                bot.send_message(message.from_user.id, "Вам сегодня повезло - вам попалась счастливая кошечка! Пусть ваш день будет прекрасен" )
+                bot.send_message(message.from_user.id, "Вам сегодня повезло - счастливая кошечка! Пусть ваш день будет прекрасен" )
 
     else:
         bot.send_message(message.from_user.id, "Извини я тебя не понимаю, пожалуйста проверь написание команд" \
